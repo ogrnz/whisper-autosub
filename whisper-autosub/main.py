@@ -9,8 +9,8 @@ from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 import torch
 
 MODEL_ID = "distil-whisper/distil-medium.en"
-DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
-DTYPE = torch.float16 if torch.cuda.is_available() else torch.float32
+DEVICE = torch.device("mps") if torch.backends.mps.is_available() else "cpu"
+DTYPE = torch.float16 if torch.backends.mps.is_available() else torch.float32
 
 
 def extract_audio(video_path):
