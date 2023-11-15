@@ -1,12 +1,11 @@
 import json
 import os
 
+import torch
 from moviepy.config import change_settings
 from moviepy.editor import CompositeVideoClip, TextClip, VideoFileClip
-
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
-import torch
 
 MODEL_ID = "distil-whisper/distil-medium.en"
 DEVICE = torch.device("mps") if torch.backends.mps.is_available() else "cpu"
@@ -73,17 +72,17 @@ if __name__ == "__main__":
     os.environ["IMAGEIO_FFMPEG_EXE"] = ffmpeg_path
     change_settings({"FFMPEG_BINARY": ffmpeg_path})
 
-    video_path = "./data/eth-phd-1.mov"
+    video_path = "./data/eth-phd-2.mov"
     # audio_path = extract_audio(video_path)
-    audio_path = "./data/eth-phd-1.wav"
+    # audio_path = "./data/eth-phd-1.wav"
     # transcription = transcribe_audio(audio_path)
     # print(transcription)
 
     # Align with gentle
+    # https://github.com/lowerquality/gentle
 
-    with open("./data/align.json", "r") as f:
+    # Load aligned json
+    with open("./data/aligned-2.json", "r") as f:
         script = json.load(f)
 
     add_subtitles_to_video(video_path, script["words"])
-
-    a = 0
