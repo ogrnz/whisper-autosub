@@ -77,6 +77,7 @@ if __name__ == "__main__":
     # audio_path = extract_audio(video_path)
     audio_path = "./data/eth-phd-1.wav"
     # transcription = transcribe_audio(audio_path)
+    # print(transcription)
 
     # Align with gentle
 
