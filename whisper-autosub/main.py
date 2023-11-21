@@ -48,11 +48,10 @@ def add_subtitles_to_video(video_path, words):
     last_end = 0
     for word in words:
         # Generate a TextClip for each piece of transcription
-        # print(word["word"])
         start_time = word.get("start", last_end + 0.01)
         end_time = word.get("end", start_time + 0.3)
 
-        txt_clip = TextClip(word["word"], fontsize=24, color="white")
+        txt_clip = TextClip(word["word"], fontsize=72, bg_color="black", color="white")
         txt_clip = (
             txt_clip.set_position("bottom")
             .set_duration(end_time - start_time)
@@ -72,17 +71,18 @@ if __name__ == "__main__":
     os.environ["IMAGEIO_FFMPEG_EXE"] = ffmpeg_path
     change_settings({"FFMPEG_BINARY": ffmpeg_path})
 
-    video_path = "./data/eth-phd-2.mov"
-    # audio_path = extract_audio(video_path)
-    # audio_path = "./data/eth-phd-1.wav"
-    # transcription = transcribe_audio(audio_path)
-    # print(transcription)
+    video_path = "./data/eth-phd-5.mp4"
+    audio_path = extract_audio(video_path)
+    # audio_path = "./data/eth-phd-1.wav"  # If you already have the audio
+    transcription = transcribe_audio(audio_path)
+    print(transcription)
 
     # Align with gentle
     # https://github.com/lowerquality/gentle
 
     # Load aligned json
-    with open("./data/aligned-2.json", "r") as f:
+    with open("./data/align.json", "r") as f:
         script = json.load(f)
 
+    # Paste subs onto video
     add_subtitles_to_video(video_path, script["words"])
