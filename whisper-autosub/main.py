@@ -81,7 +81,8 @@ if __name__ == "__main__":
     # https://github.com/lowerquality/gentle
 
     # Load aligned json
-    with open("./data/align.json", "r") as f:
+    aligned_text_path = "./data/align.json"
+    with open(aligned_text_path, "r") as f:
         script = json.load(f)
 
     # Paste subs onto video
